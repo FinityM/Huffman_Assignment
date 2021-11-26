@@ -13,15 +13,8 @@ public class HuffItem {
         return sym;
     }
 
-    public void setSym(String sym) {
-        this.sym = sym;
-    }
-
     public int getFreq() {
         return freq;
     }
 
-    public void setFreq(int freq) {
-        this.freq = freq;
-    }
 }

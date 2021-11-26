@@ -7,24 +7,29 @@ import java.io.IOException;
 
 public class HuffmanTree {
     TreeNode root;
+    TreeNode newNodes;
     ListArrayBased frqtable = new ListArrayBased();
-    File file;
-    BufferedReader reader;
     String s;
     String[] starr;
     String encodeRes;
 
     public void readFreqTable() throws IOException {
-        int i = 1;
-        file = new File("Textfiles/LetterCountAscending.txt");
-        reader = new BufferedReader(new FileReader(file));
+        File file = new File("Textfiles/LetterCountAscending.txt");
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        while ((s = reader.readLine()) != null) {
+        int i = 1;
+
+        while ((s = bufferedReader.readLine()) != null) {
             starr = s.split("\t", 2);
-            frqtable.add(i++, new TreeNode(new HuffItem(starr[0], Integer.parseInt(starr[1]))));
+            String letters = starr[0];
+            int numbers = Integer.parseInt(starr[1]);
+            HuffItem freqItems = new HuffItem(letters, numbers);
+            newNodes = new TreeNode(freqItems);
+            frqtable.add(i++, newNodes);
         }
 
-        reader.close();
+        bufferedReader.close();
         // Test if it can read the file and output
         System.out.println(file.exists());
         System.out.println(frqtable.size());
@@ -41,13 +46,14 @@ public class HuffmanTree {
             frqtable.remove(1);
             frqtable.remove(1);
 
-            TreeNode parent = new TreeNode(new HuffItem("*", ((HuffItem) left.getItem()).getFreq() + ((HuffItem) right.getItem()).getFreq()), left, right);
-            frqtable.add(frqtable.size() + 1, parent);
+            TreeNode parentNode = new TreeNode(new HuffItem("*", ((HuffItem) left.getItem()).getFreq() + ((HuffItem) right.getItem()).getFreq()), left, right);
+            frqtable.add(frqtable.size() + 1, parentNode);
             frqtable.bubbleSort();
 
         }
 
         root = (TreeNode) frqtable.get(1);
+        System.out.println(frqtable.get(1));
 
     }
 
