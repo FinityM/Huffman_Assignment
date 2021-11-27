@@ -80,6 +80,7 @@ public class ListArrayBased implements ListInterface {
         return position - 1;
     }  // end translate
 
+    // Bubble sort method from online edited to apply to this program
     public void bubbleSort() {
         int arysize = size();
         for (int i = 0; i < arysize - 1; i++) {
