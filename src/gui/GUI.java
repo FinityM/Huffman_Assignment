@@ -67,20 +67,20 @@ public class GUI implements ActionListener {
         if (e.getSource() == encode) {
             System.out.println("Encode was pressed");
             message = textArea1.getText();
-            // Insert function for validation validation
-            // Insert function for encoding here
+            // Insert function for validation
+
+            // Encoding Function
             tree.encode(tree.getRoot(), "", (String) message);
             textArea2.setText(tree.getEncodeRes());
 
             System.out.println(tree.getEncodeRes());
-            //textArea2.setText();
 
         } else if (e.getSource() == decode) {
             System.out.println("Decode was pressed");
             message = textArea1.getText();
-            // Insert function for validation validation
-            // Insert function for decoding here
-            //tree.decode((String) message);
+            // Insert function for validation
+
+            // Decoding function
             textArea2.setText(tree.decode((String) message));
             System.out.println(message);
 

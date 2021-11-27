@@ -46,15 +46,17 @@ public class HuffmanTree {
             frqtable.remove(1);
             frqtable.remove(1);
 
-            TreeNode parentNode = new TreeNode(new HuffItem("*", ((HuffItem) left.getItem()).getFreq() + ((HuffItem) right.getItem()).getFreq()), left, right);
+            HuffItem leftItem = ((HuffItem) left.getItem());
+            HuffItem rightItem = ((HuffItem) right.getItem());
+
+            HuffItem sumFreq = new HuffItem("*", leftItem.getFreq() + rightItem.getFreq());
+
+            TreeNode parentNode = new TreeNode(sumFreq, left, right);
             frqtable.add(frqtable.size() + 1, parentNode);
             frqtable.bubbleSort();
 
         }
-
         root = (TreeNode) frqtable.get(1);
-        System.out.println(frqtable.get(1));
-
     }
 
     public String decode(String code) {
