@@ -82,7 +82,7 @@ public class GUI implements ActionListener {
 
             // Decoding function
             textArea2.setText(tree.decode((String) message));
-            System.out.println(message);
+            System.out.println(tree.decode((String) message));
 
         }
 

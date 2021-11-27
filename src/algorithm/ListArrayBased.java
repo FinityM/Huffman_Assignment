@@ -84,7 +84,16 @@ public class ListArrayBased implements ListInterface {
         int arysize = size();
         for (int i = 0; i < arysize - 1; i++) {
             for (int j = 0; j < arysize - 1; j++) {
-                if (((HuffItem) ((TreeNode) items[j]).getItem()).getFreq() > ((HuffItem) ((TreeNode) items[j + 1]).getItem()).getFreq()) {
+                // Variables for the if statement to convert variable types of the nodes
+                // Tree nodes
+                TreeNode nodesZero = ((TreeNode) items[j]);
+                TreeNode nodesOne = ((TreeNode) items[j + 1]);
+
+                // Huff item nodes
+                HuffItem itemsZero = ((HuffItem) (nodesZero).getItem());
+                HuffItem itemsOne = ((HuffItem) (nodesOne).getItem());
+
+                if (itemsZero.getFreq() > itemsOne.getFreq()) {
                     Object temp = items[j];
                     items[j] = items[j + 1];
                     items[j + 1] = temp;
