@@ -94,8 +94,11 @@ public class ListArrayBased implements ListInterface {
                 HuffItem itemsZero = ((HuffItem) (nodesZero).getItem());
                 HuffItem itemsOne = ((HuffItem) (nodesOne).getItem());
 
+                // Object to store the data
+                Object temp;
+
                 if (itemsZero.getFreq() > itemsOne.getFreq()) {
-                    Object temp = items[j];
+                    temp = items[j];
                     items[j] = items[j + 1];
                     items[j + 1] = temp;
 

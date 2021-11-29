@@ -61,9 +61,10 @@ public class HuffmanTree {
 
     public String decode(String code) {
         TreeNode curr = root;
+        char c;
 
         for (int i = 0; i < code.length(); i++) {
-            char c = code.charAt(i);
+            c = code.charAt(i);
 
             if (c == '0') {
                 curr = curr.getLeft();
@@ -76,7 +77,9 @@ public class HuffmanTree {
 
     public void encode(TreeNode rootNode, String code, String symbol) {
 
-        if (((HuffItem) rootNode.getItem()).getSym().equals(symbol)) {
+        String letter = ((HuffItem) rootNode.getItem()).getSym();
+
+        if (letter.equals(symbol)) {
             encodeRes = code;
         }
 
