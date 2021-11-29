@@ -42,9 +42,9 @@ public class GUI implements ActionListener {
         textArea1.setPreferredSize(new Dimension(300, 200));
         textArea2.setPreferredSize(new Dimension(300, 200));
 
-        panel1.setBackground(Color.GRAY);
-        panel2.setBackground(Color.BLACK);
-        panel3.setBackground(Color.BLUE);
+        panel1.setBackground(Color.decode("#F5D10D"));
+        panel2.setBackground(Color.decode("#181818"));
+        panel3.setBackground(Color.decode("#F5D10D"));
 
         panel1.add(textArea1);
         panel2.add(encode);
@@ -80,9 +80,14 @@ public class GUI implements ActionListener {
             message = textArea1.getText();
             // Insert function for validation
 
+            // Simple try catch for checking for binary digits and maximum allowed of digits
             // Decoding function
-            textArea2.setText(tree.decode((String) message));
-            System.out.println(tree.decode((String) message));
+            try {
+                textArea2.setText(tree.decode((String) message));
+                System.out.println(tree.decode((String) message));
+            } catch (NullPointerException nullE) {
+                System.out.println("You either typed more than the amount of binary digits allowed or didn't enter a binary digit please try again");
+            }
 
         }
 

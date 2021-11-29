@@ -36,7 +36,6 @@ public class HuffmanTree {
 
     }
 
-
     public void genTree() {
 
         while (frqtable.size() > 1) {
