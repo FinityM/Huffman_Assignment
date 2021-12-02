@@ -19,6 +19,7 @@ public class GUI implements ActionListener {
     JButton encode;
     JButton decode;
     Object message;
+    String specialCharsRegex = "[\\\\!\"#*$%&()+,./:;<=>?@\\[\\]^_{|}~]+";
 
     public GUI() throws IOException {
         tree.readFreqTable();
@@ -55,6 +56,7 @@ public class GUI implements ActionListener {
         gui.add(panel2);
         gui.add(panel3);
 
+        gui.setTitle("Huffman Tree Encoder and Decoder");
         gui.setLocation(600, 100);
         gui.setSize(500, 500);
         gui.setVisible(true);
@@ -62,32 +64,94 @@ public class GUI implements ActionListener {
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public boolean encodeValid(char letter) {
+        if (Character.isDigit(letter)) {
+            textArea2.setText("You cannot enter numbers");
+            System.out.println("You cannot enter numbers");
+            return true;
+        } else if (Character.isLowerCase(letter)) {
+            textArea2.setText("You cannot enter lowercase letters");
+            System.out.println("You cannot enter lowercase letters");
+            return true;
+        } else if (!Character.toString(letter).matches("[A-Z]")) {
+            textArea2.setText("You can only enter capital letters");
+            System.out.println("You can only enter capital letters");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean decodeValid(String bindigits) {
+
+        if (bindigits.matches("[a-zA-Z]+")) {
+            textArea2.setText("You cannot decode letters");
+            System.out.println("You cannot decode letters");
+            return true;
+        } else if (bindigits.matches("[2-9]")) {
+            textArea2.setText("You can only enter 1 or 0");
+            System.out.println("You can only enter 1 or 0");
+            return true;
+        } else if (bindigits.matches(specialCharsRegex)) {
+            textArea2.setText("You cannot enter special characters");
+            System.out.println("You cannot enter special characters");
+            return true;
+
+        } else if (bindigits.equals("")) {
+            textArea2.setText("You did not type anything in the textbox");
+            System.out.println("You did not type anything in the textbox");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == encode) {
             System.out.println("Encode was pressed");
             message = textArea1.getText();
-            // Insert function for validation
 
-            // Encoding Function
-            tree.encode(tree.getRoot(), "", (String) message);
-            textArea2.setText(tree.getEncodeRes());
+            // Insert function for validation and encoding
+            // Exception catch for if the encode is pressed and no data is entered
+            try {
+                char validateChar = ((String) message).charAt(0);
 
-            System.out.println(tree.getEncodeRes());
+                if (!encodeValid(validateChar)) {
+                    tree.encode(tree.getTreeNodes(), "", (String) message);
+                    textArea2.setText(tree.getEncodeRes());
+                }
+
+            } catch (Exception emptyE) {
+                textArea2.setText("You did not enter anything on the textbox");
+                System.out.println("You did not enter anything on the textbox");
+            }
 
         } else if (e.getSource() == decode) {
             System.out.println("Decode was pressed");
             message = textArea1.getText();
-            // Insert function for validation
 
-            // Simple try catch for checking for binary digits and maximum allowed of digits
-            // Decoding function
+            String binDigits = (String) message;
+
+            String decodeDigits = tree.decode(binDigits);
+
             try {
-                textArea2.setText(tree.decode((String) message));
-                System.out.println(tree.decode((String) message));
-            } catch (NullPointerException nullE) {
-                System.out.println("You either typed more than the amount of binary digits allowed or didn't enter a binary digit please try again");
+                if (!decodeValid(binDigits) && !decodeDigits.equals("*")) {
+                    textArea2.setText(tree.decode(binDigits));
+                    System.out.println(tree.decode(binDigits));
+                } else if (decodeDigits.equals("*") && !binDigits.equals("")) {
+                    textArea2.setText("Not enough binary digits");
+                    System.out.println("Not enough binary digits");
+                } else if (binDigits.equals("")) {
+                    textArea2.setText("You did not type anything in the textbox");
+                    System.out.println("You did not type anything in the textbox");
+                }
+            } catch (Exception nullE) {
+                textArea2.setText("Invalid input");
+                System.out.println("Invalid input");
+
             }
+
 
         }
 

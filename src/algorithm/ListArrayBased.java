@@ -98,8 +98,13 @@ public class ListArrayBased implements ListInterface {
                 Object temp;
 
                 if (itemsZero.getFreq() > itemsOne.getFreq()) {
+                    // initialise to the top frequency of the list array
                     temp = items[j];
+
+                    // Add the frequency to the next frequency on the list array
                     items[j] = items[j + 1];
+
+                    // Repeat the process on the list array
                     items[j + 1] = temp;
 
                 }
